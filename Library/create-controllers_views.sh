@@ -1,0 +1,6 @@
+dotnet aspnet-codegenerator controller -name PublisherController -m Publisher -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+dotnet aspnet-codegenerator controller -name BookController -m Book -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+dotnet aspnet-codegenerator controller -name AuthorController -m Author -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+dotnet aspnet-codegenerator controller -name BookauthorController -m Bookauthor -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+dotnet aspnet-codegenerator controller -name LoanController -m Loan -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+dotnet aspnet-codegenerator controller -name MemberController -m Member -dc LibraryContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f

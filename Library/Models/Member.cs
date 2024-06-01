@@ -7,7 +7,6 @@ namespace Library.Models;
 
 public partial class Member
 {
-    [Key]
     public int MemberId { get; set; }
     [Required(ErrorMessage = "Nome é obrigatório")]
     [StringLength(50, ErrorMessage = "Nome deve ter no máximo 50 caracteres")]
@@ -29,9 +28,11 @@ public partial class Member
     [MaxLength(20, ErrorMessage = "Telefone deve ter no máximo 20 caracteres")]
     public string? Phone { get; set; }
     [Display(Name = "Ínicio da Associação")]
+    [DataType(DataType.Date)]
     [Required(ErrorMessage = "Data de início da associação é obrigatória")]
     public DateOnly MembershipStartDate { get; set; }
     [Display(Name = "Fim da Associação")]
+    [DataType(DataType.Date)]
     public DateOnly? MembershipEndDate { get; set; }
 
     public virtual ICollection<Loan> Loans { get; set; } = new List<Loan>();

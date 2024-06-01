@@ -50,7 +50,7 @@ namespace Library.Controllers
         public IActionResult Create()
         {
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId");
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "MemberId");
+            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace Library.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId", loan.BookId);
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "MemberId", loan.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email", loan.MemberId);
             return View(loan);
         }
 
@@ -86,7 +86,7 @@ namespace Library.Controllers
                 return NotFound();
             }
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId", loan.BookId);
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "MemberId", loan.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email", loan.MemberId);
             return View(loan);
         }
 
@@ -123,7 +123,7 @@ namespace Library.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId", loan.BookId);
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "MemberId", loan.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email", loan.MemberId);
             return View(loan);
         }
 

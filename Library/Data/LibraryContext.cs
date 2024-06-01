@@ -146,17 +146,11 @@ public partial class LibraryContext : DbContext
         modelBuilder.Entity<Publisher>(entity =>
         {
             entity.HasKey(e => e.PublisherId).HasName("publisher_pkey");
-
             entity.ToTable("publisher");
-
             entity.Property(e => e.PublisherId).HasColumnName("publisher_id");
-            entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(15)
-                .HasColumnName("phone");
         });
 
         OnModelCreatingPartial(modelBuilder);

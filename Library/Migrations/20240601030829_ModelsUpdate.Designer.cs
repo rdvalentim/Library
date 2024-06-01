@@ -3,6 +3,7 @@ using System;
 using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20240601030829_ModelsUpdate")]
+    partial class ModelsUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +34,12 @@ namespace Library.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AuthorId"));
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("birth_date");
 
-                    b.Property<DateOnly?>("DeathDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeathDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("death_date");
 
                     b.Property<string>("FirstName")
@@ -146,16 +149,16 @@ namespace Library.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("book_id");
 
-                    b.Property<DateOnly>("LoanDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("LoanDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("loan_date");
 
                     b.Property<int?>("MemberId")
                         .HasColumnType("integer")
                         .HasColumnName("member_id");
 
-                    b.Property<DateOnly?>("ReturnDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("ReturnDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("return_date");
 
                     b.HasKey("LoanId")

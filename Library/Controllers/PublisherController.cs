@@ -54,7 +54,7 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PublisherId,Name,Address,Phone")] Publisher publisher)
+        public async Task<IActionResult> Create([Bind("PublisherId,Name")] Publisher publisher)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Library.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PublisherId,Name,Address,Phone")] Publisher publisher)
+        public async Task<IActionResult> Edit(int id, [Bind("PublisherId,Name")] Publisher publisher)
         {
             if (id != publisher.PublisherId)
             {

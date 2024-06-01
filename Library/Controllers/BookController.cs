@@ -48,7 +48,7 @@ namespace Library.Controllers
         // GET: Book/Create
         public IActionResult Create()
         {
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId");
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Library.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId", book.PublisherId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "Name", book.PublisherId);
             return View(book);
         }
 
@@ -82,7 +82,7 @@ namespace Library.Controllers
             {
                 return NotFound();
             }
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId", book.PublisherId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "Name", book.PublisherId);
             return View(book);
         }
 
@@ -118,7 +118,7 @@ namespace Library.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "PublisherId", book.PublisherId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "Name", book.PublisherId);
             return View(book);
         }
 
