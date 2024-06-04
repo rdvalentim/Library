@@ -61,6 +61,12 @@ namespace Library.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (IsbnExists(book.Isbn))
+                {
+                    ModelState.AddModelError("Isbn", "Isbn já cadastrado!");
+                    ViewData["PublisherId"] = new SelectList(_context.Publishers, "PublisherId", "Name", book.PublisherId);
+                    return View(book);
+                }
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -159,6 +165,10 @@ namespace Library.Controllers
         private bool BookExists(int id)
         {
             return _context.Books.Any(e => e.BookId == id);
+        }
+        private bool IsbnExists(string isbn)
+        {
+            return _context.Books.Any(e => e.Isbn == isbn);
         }
     }
 }
