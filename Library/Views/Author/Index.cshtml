@@ -1,15 +1,21 @@
 @model IEnumerable<Library.Models.Author>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Autores";
 }
 
-<h1>Index</h1>
+<h1 class="text-3xl mb-2">
+    <strong>Cadastro de Autores</strong>
+</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<hr class="mb-6">
+
+<a asp-action="Create" class="create-button mb-3">
+    <i class="material-symbols-outlined">
+        add_circle
+    </i>
+</a>
+<table>
     <thead>
         <tr>
             <th>
@@ -28,26 +34,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeathDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AuthorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AuthorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AuthorId">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="5" class="text-center w-full gap-2">
+                    <span>
+                        Nenhum registro encontrado.
+                    </span>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeathDate)
+                </td>
+                <td class="cell-actions">
+                    <a asp-action="Edit" asp-route-id="@item.AuthorId">
+                        <i class="material-symbols-outlined scale-90">
+                            edit_note
+                        </i>
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.AuthorId">
+                        <i class="material-symbols-outlined scale-90">
+                            info
+                        </i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.AuthorId">
+                        <i class="material-symbols-outlined scale-90">
+                            delete
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

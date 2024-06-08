@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    -webkit-font-smoothing: antialiased;
+    font-family: "Urbanist", sans-serif;
+}
+
+table {
+    @apply min-w-full border border-gray-300 rounded-xl overflow-hidden text-sm shadow-2xl;
+}
+
+th {
+    @apply px-4 py-2 border-b border-gray-300;
+}
+
+thead {
+    @apply bg-gray-200;
+}
+
+tbody {
+    @apply border rounded-2xl;
+}
+
+tbody tr:nth-child(odd) {
+    @apply bg-white;
+}
+
+tbody tr:nth-child(even) {
+    @apply bg-gray-100;
+}
+
+tbody tr:hover {
+    @apply bg-gray-200;
+}
+
+td {
+    @apply px-4 py-2 border-b border-gray-300;
+}
+
+.cell-actions {
+    @apply flex justify-end;
+}
+
+.cell-actions a {
+    @apply flex justify-center items-center;
+}
+
+.create-button {
+    @apply py-2 px-5 bg-green-400 rounded-xl flex justify-center shadow-lg items-center w-36 text-sm gap-2 hover:scale-95 hover:shadow-sm hover:text-black duration-200 ease-out active:scale-90 active:shadow-sm;
+}
