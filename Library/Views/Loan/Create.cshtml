@@ -1,46 +1,52 @@
 @model Library.Models.Loan
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastro de Empréstimo";
 }
 
-<h1>Create</h1>
+<h1 class="text-3xl mb-2">
+    <strong>Cadastrar Empréstimo</strong>
+</h1>
 
-<h4>Loan</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
-                <select asp-for="BookId" class ="form-control" asp-items="ViewBag.BookId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <select asp-for="MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="LoanDate" class="control-label"></label>
-                <input asp-for="LoanDate" class="form-control" />
-                <span asp-validation-for="LoanDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReturnDate" class="control-label"></label>
-                <input asp-for="ReturnDate" class="form-control" />
-                <span asp-validation-for="ReturnDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<hr class="mb-6">
+
+<form asp-action="Create" class="flel flex-col gap-11 mb-5">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="flex flex-col gap-2">
+        <label asp-for="BookId" class="control-label"></label>
+        <select asp-for="BookId" class="form-control rounded-xl flex" asp-items="ViewBag.BookId"></select>
+        <span asp-validation-for="BookId" class="text-danger"></span>
     </div>
-</div>
+    <div class="flex flex-col gap-2">
+        <label asp-for="MemberId" class="control-label"></label>
+        <select asp-for="MemberId" class="form-control rounded-xl flex" asp-items="ViewBag.MemberId"></select>
+        <span asp-validation-for="MemberId" class="text-danger"></span>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label asp-for="LoanDate" class="control-label"></label>
+        <input asp-for="LoanDate" class="form-control rounded-xl flex" />
+        <span asp-validation-for="LoanDate" class="text-danger"></span>
+    </div>
+    <div class="flex flex-col gap-2 mb-3">
+        <label asp-for="ReturnDate" class="control-label"></label>
+        <input asp-for="ReturnDate" class="form-control rounded-xl flex" />
+        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+    </div>
+    <div class="flex flex-col gap-2">
+        <input type="submit" value="CADASTRAR" class="btn btn-primary rounded-lg p-3" />
+    </div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="flex items-center justify-center rounded-xl p-4 border">
+        <i class="material-symbols-outlined">
+            arrow_back
+        </i>
+    </a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

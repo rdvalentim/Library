@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Library</title>
+    <title>@ViewData["Title"] - Biblioteca</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,8 @@
 
 <body>
     <header>
-        <nav class="border-b mb-3 py-2 px-96 shadow-md flex items-center">
+        <nav
+            class="border-b mb-3 py-2 sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96 shadow-md flex items-center">
             <a asp-controller="Home" asp-action="Index">
                 <i class="material-symbols-outlined scale-110 hover:scale-90 duration-200 drop-shadow-sm ease-out p-2">
                     book
@@ -33,16 +34,17 @@
                 <a asp-controller="Author" asp-action="Index">Autores</a>
                 <a asp-controller="Bookauthor" asp-action="Index">Autores | Livros</a>
                 <a asp-controller="Loan" asp-action="Index">Empréstimos</a>
-                <a asp-controller="Member" asp-action="Index">Clientes</a>
+                <a asp-controller="Member" asp-action="Index">Membros</a>
                 <a asp-controller="Publisher" asp-action="Index">Editoras</a>
             </div>
         </nav>
     </header>
-    <main role="main" class="px-96">
+    <main role="main" class="sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96">
         @RenderBody()
     </main>
 
-    <footer class="absolute bottom-0 w-full border-t py-3 px-96 flex items-center text-gray-500">
+    <footer
+        class="absolute bottom-0 w-full border-t py-3 sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96 flex items-center text-gray-500">
         <div>
             &copy; 2024 - Biblioteca Virtual - <a asp-area="" asp-controller="Home" asp-action="Privacy"
                 class="text-gray-600">Privacidade</a>

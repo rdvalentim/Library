@@ -4,6 +4,13 @@
     ViewData["Title"] = "Empréstimos";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div id="message" class="w-full h-48 bg-yellow-200 flex gap-2 items-center justify-center mb-3">
+    <p class="text-2xl"><strong>@TempData["Message"]</strong></p>
+</div>
+}
+
 <h1 class="text-3xl mb-2">
     <strong>Cadastro de Empréstimos</strong>
 </h1>
@@ -30,14 +37,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Member)
             </th>
-            <th></th>
+            <th>
+                Status
+            </th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="5" class="text-center w-full gap-2">
+                <td colspan="6" class="text-center w-full gap-2">
                     <span>
                         Nenhum registro encontrado.
                     </span>
@@ -54,20 +65,36 @@
                     @Html.DisplayFor(modelItem => item.ReturnDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.BookId)
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Member.Email)
+                    @Html.DisplayFor(modelItem => item.Member.FirstName) @Html.DisplayFor(modelItem =>
+                item.Member.LastName)
+                </td>
+                <td>
+                    @if (item.ReturnDate == null && item.LoanDate.AddMonths(1) >= DateOnly.FromDateTime(DateTime.Now))
+                    {
+                        <span>
+                            Em aberto
+                        </span>
+                    }
+                    else if (item.LoanDate.AddMonths(1) < DateOnly.FromDateTime(DateTime.Now) && item.ReturnDate == null)
+                    {
+                        <span>
+                            Atrasado
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            Finalizado
+                        </span>
+                    }
                 </td>
                 <td class="cell-actions">
                     <a asp-action="Edit" asp-route-id="@item.LoanId">
                         <i class="material-symbols-outlined scale-90">
                             edit_note
-                        </i>
-                    </a>
-                    <a asp-action="Details" asp-route-id="@item.LoanId">
-                        <i class="material-symbols-outlined scale-90">
-                            info
                         </i>
                     </a>
                     <a asp-action="Delete" asp-route-id="@item.LoanId">

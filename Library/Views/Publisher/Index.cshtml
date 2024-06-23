@@ -4,6 +4,13 @@
     ViewData["Title"] = "Editoras";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div id="message" class="w-full h-48 bg-yellow-200 flex gap-2 items-center justify-center mb-3">
+    <p class="text-2xl"><strong>@TempData["Message"]</strong></p>
+</div>
+}
+
 <h1 class="text-3xl mb-2">
     <strong>Cadastro de Editoras</strong>
 </h1>
@@ -45,11 +52,6 @@
                     <a asp-action="Edit" asp-route-id="@item.PublisherId">
                         <i class="material-symbols-outlined scale-90">
                             edit_note
-                        </i>
-                    </a>
-                    <a asp-action="Details" asp-route-id="@item.PublisherId">
-                        <i class="material-symbols-outlined scale-90">
-                            info
                         </i>
                     </a>
                     <a asp-action="Delete" asp-route-id="@item.PublisherId">

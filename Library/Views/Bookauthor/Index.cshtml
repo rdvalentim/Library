@@ -4,19 +4,14 @@
     ViewData["Title"] = "Autores | Livros";
 }
 
-<div
-    class="py-24 text-center w-full rounded-xl shadow-2xl bg-yellow-200 mb-6 leading-none flex justify-center items-center gap-2">
-    <i class="material-symbols-outlined m-0">
-        warning
-    </i>
-    <span>
-        <strong>Atenção:</strong> Esta página é apenas para a manutenção de relacionamentos entre autores e livros
-        previamente cadastrados.
-    </span>
+@if (TempData["Message"] != null)
+{
+    <div id="message" class="w-full h-48 bg-yellow-200 flex gap-2 items-center justify-center mb-3">
+    <p class="text-2xl"><strong>@TempData["Message"]</strong></p>
 </div>
-
+}
 <h1 class="text-3xl mb-2">
-    <strong>Cadastro do Relacionamento Autores - Livros</strong>
+    <strong>Cadastro do Vínculos Autores - Livros</strong>
 </h1>
 
 <hr class="mb-6">
@@ -53,20 +48,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author.FirstName)
+                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.BookId)
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td class="cell-actions">
                     <a asp-action="Edit" asp-route-id="@item.BookAuthorId">
                         <i class="material-symbols-outlined scale-90">
                             edit_note
-                        </i>
-                    </a>
-                    <a asp-action="Details" asp-route-id="@item.BookAuthorId">
-                        <i class="material-symbols-outlined scale-90">
-                            info
                         </i>
                     </a>
                     <a asp-action="Delete" asp-route-id="@item.BookAuthorId">

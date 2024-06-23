@@ -1,34 +1,38 @@
 @model Library.Models.Publisher
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Alterar Editora";
 }
 
-<h1>Edit</h1>
+<h1 class="text-3xl mb-2">
+    <strong>Alteração de Editora</strong>
+</h1>
 
-<h4>Publisher</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="PublisherId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<hr class="mb-6">
+
+<form asp-action="Edit" class="flel flex-col gap-11 mb-5">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="PublisherId" />
+    <div class="flex flex-col gap-2 mb-3">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control rounded-xl flex" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-</div>
+    <div class="flex flex-col gap-2">
+        <input type="submit" value="SALVAR" class="btn btn-primary rounded-lg p-3" />
+    </div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="flex items-center justify-center rounded-xl p-4 border">
+        <i class="material-symbols-outlined">
+            arrow_back
+        </i>
+    </a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
