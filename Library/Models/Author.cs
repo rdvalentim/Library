@@ -13,6 +13,7 @@ namespace Library.Models
         [Required(ErrorMessage = "O campo Sobrenome é obrigatório.")]
         [Display(Name = "Sobrenome")]
         public string LastName { get; set; } = null!;
+        [Required(ErrorMessage = "O campo Data de Nascimento é obrigatório.")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento")]
         public DateOnly? BirthDate { get; set; }
