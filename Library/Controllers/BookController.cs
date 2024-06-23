@@ -20,8 +20,12 @@ namespace Library.Controllers
         }
 
         // GET: Book
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["Message"] = message;
+            }
             var libraryContext = _context.Books.Include(b => b.Publisher);
             return View(await libraryContext.ToListAsync());
         }
@@ -155,6 +159,10 @@ namespace Library.Controllers
             var book = await _context.Books.FindAsync(id);
             if (book != null)
             {
+                if (!CanDeleteBook(id))
+                {
+                    return RedirectToAction(nameof(Index), new { message = $"Não é possível excluir o livro {book.Title}, pois ele está emprestado ou possui autores associados." });
+                }
                 _context.Books.Remove(book);
             }
 
@@ -169,6 +177,11 @@ namespace Library.Controllers
         private bool IsbnExists(string isbn)
         {
             return _context.Books.Any(e => e.Isbn == isbn);
+        }
+
+        private bool CanDeleteBook(int id)
+        {
+            return !_context.Loans.Any(e => e.BookId == id) && !_context.Bookauthors.Any(e => e.BookId == id);
         }
     }
 }

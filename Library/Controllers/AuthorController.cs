@@ -20,8 +20,12 @@ namespace Library.Controllers
         }
 
         // GET: Author
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["Message"] = message;
+            }
             return View(await _context.Authors.ToListAsync());
         }
 
@@ -142,6 +146,10 @@ namespace Library.Controllers
             var author = await _context.Authors.FindAsync(id);
             if (author != null)
             {
+                if (!CanDeleteAuthor(id))
+                {
+                    return RedirectToAction(nameof(Index), new { message = $"Autor '{author.FirstName} {author.LastName}' não pode ser excluído pois possui livros vínculados." });
+                }
                 _context.Authors.Remove(author);
             }
 
@@ -152,6 +160,11 @@ namespace Library.Controllers
         private bool AuthorExists(int id)
         {
             return _context.Authors.Any(e => e.AuthorId == id);
+        }
+
+        private bool CanDeleteAuthor(int id)
+        {
+            return !_context.Bookauthors.Any(b => b.AuthorId == id);
         }
     }
 }

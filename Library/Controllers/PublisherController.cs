@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Library.Data;
 using Library.Models;
+using System.Text.Unicode;
+using System.Buffers.Text;
+using System.Runtime.Serialization;
+using System.Text.Encodings.Web;
+using System.Text;
 
 namespace Library.Controllers
 {
@@ -20,8 +25,12 @@ namespace Library.Controllers
         }
 
         // GET: Publisher
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["Message"] = message;
+            }
             return View(await _context.Publishers.ToListAsync());
         }
 
@@ -145,6 +154,11 @@ namespace Library.Controllers
                 _context.Publishers.Remove(publisher);
             }
 
+            if (!CanDeletePublisher(publisher.PublisherId))
+            {
+                return RedirectToAction(nameof(Index), new { message = $"Editora '{publisher.Name}' não pode ser excluída pois possui livros cadastrados." });
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -152,6 +166,11 @@ namespace Library.Controllers
         private bool PublisherExists(int id)
         {
             return _context.Publishers.Any(e => e.PublisherId == id);
+        }
+
+        private bool CanDeletePublisher(int id)
+        {
+            return !_context.Books.Any(e => e.PublisherId == id);
         }
     }
 }

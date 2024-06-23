@@ -22,8 +22,13 @@ namespace Library.Controllers
         // GET: Loan
         public async Task<IActionResult> Index()
         {
-            var libraryContext = _context.Loans.Include(l => l.Book).Include(l => l.Member);
-            return View(await libraryContext.ToListAsync());
+            var membersWithStatus = await _context
+            .Loans
+            .Include(l => l.Book)
+            .Include(l => l.Member).ToListAsync();
+
+
+            return View(membersWithStatus);
         }
 
         // GET: Loan/Details/5
@@ -46,11 +51,36 @@ namespace Library.Controllers
             return View(loan);
         }
 
+        private void FillViewData(Loan loan)
+        {
+            var members = _context.Members
+                .Select(a => new
+                {
+                    a.MemberId,
+                    FullName = a.FirstName + " " + a.LastName
+                })
+                .ToList();
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", loan.BookId);
+            ViewData["MemberId"] = new SelectList(members, "MemberId", "FullName", loan.MemberId);
+        }
+
+        private void FillViewData()
+        {
+            var members = _context.Members
+                .Select(a => new
+                {
+                    a.MemberId,
+                    FullName = a.FirstName + " " + a.LastName
+                })
+                .ToList();
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title");
+            ViewData["MemberId"] = new SelectList(members, "MemberId", "FullName");
+        }
+
         // GET: Loan/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId");
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email");
+            FillViewData();
             return View();
         }
 
@@ -63,12 +93,25 @@ namespace Library.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!CanLoanBook(loan.BookId))
+                {
+                    ModelState.AddModelError("BookId", "Livro não disponível para empréstimo.");
+                    FillViewData(loan);
+                    return View(loan);
+                }
+
+                if (!CanMemberLoan(loan.MemberId))
+                {
+                    ModelState.AddModelError("MemberId", "Membro já possuí 3 emprestimos ou está inadimplente.");
+                    FillViewData(loan);
+                    return View(loan);
+                }
+
                 _context.Add(loan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId", loan.BookId);
-            ViewData["MemberId"] = new SelectList(_context.Members, "MemberId", "Email", loan.MemberId);
+            FillViewData(loan);
             return View(loan);
         }
 
@@ -165,6 +208,30 @@ namespace Library.Controllers
         private bool LoanExists(int id)
         {
             return _context.Loans.Any(e => e.LoanId == id);
+        }
+
+        private bool CanLoanBook(int? bookId)
+        {
+            var book = _context.Books.Find(bookId);
+            if (book == null)
+            {
+                return false;
+            }
+
+            var loans = _context.Loans.Where(l => l.BookId == bookId && l.ReturnDate == null).ToList();
+            return loans.Count < book.NumberOfCopies;
+        }
+
+        private bool CanMemberLoan(int? memberId)
+        {
+            var member = _context.Members.Find(memberId);
+            if (member == null)
+            {
+                return false;
+            }
+
+            var loans = _context.Loans.Where(l => l.MemberId == memberId && l.ReturnDate == null).ToList();
+            return loans.Count < 3 || loans.Any(l => l.LoanDate.AddMonths(1) < DateOnly.FromDateTime(DateTime.Now));
         }
     }
 }

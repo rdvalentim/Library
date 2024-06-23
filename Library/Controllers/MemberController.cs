@@ -20,8 +20,12 @@ namespace Library.Controllers
         }
 
         // GET: Member
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message)
         {
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["Message"] = message;
+            }
             return View(await _context.Members.ToListAsync());
         }
 
@@ -142,6 +146,10 @@ namespace Library.Controllers
             var member = await _context.Members.FindAsync(id);
             if (member != null)
             {
+                if (!CanDeleteMember(id))
+                {
+                    return RedirectToAction(nameof(Index), new { message = $"Membro {member.FirstName} {member.LastName} não pode ser excluído, pois possui empréstimos em aberto." });
+                }
                 _context.Members.Remove(member);
             }
 
@@ -152,6 +160,11 @@ namespace Library.Controllers
         private bool MemberExists(int id)
         {
             return _context.Members.Any(e => e.MemberId == id);
+        }
+
+        private bool CanDeleteMember(int id)
+        {
+            return !_context.Loans.Any(l => l.MemberId == id && l.ReturnDate == null);
         }
     }
 }
