@@ -6,7 +6,8 @@
 
 @if (TempData["Message"] != null)
 {
-    <div id="message" class="w-full h-48 bg-yellow-200 flex gap-2 items-center justify-center mb-3">
+    <div id="message"
+    class="w-full h-48 border shadow-xl rounded-xl animate-pulse bg-yellow-200 flex gap-2 items-center justify-center mb-3">
     <p class="text-2xl"><strong>@TempData["Message"]</strong></p>
 </div>
 }
