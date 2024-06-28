@@ -231,7 +231,13 @@ namespace Library.Controllers
             }
 
             var loans = _context.Loans.Where(l => l.MemberId == memberId && l.ReturnDate == null).ToList();
-            return loans.Count < 3 || loans.Any(l => l.LoanDate.AddMonths(1) < DateOnly.FromDateTime(DateTime.Now));
+
+            if (loans.Count == 0)
+            {
+                return true;
+            }
+
+            return loans.Count < 3 && loans.Any(l => l.LoanDate.AddMonths(1) > DateOnly.FromDateTime(DateTime.Now));
         }
     }
 }
