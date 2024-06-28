@@ -8,15 +8,15 @@ body {
 }
 
 table {
-    @apply min-w-full border border-gray-300 rounded-xl overflow-hidden text-sm shadow-2xl;
+    @apply min-w-full border border-gray-300 dark:border-gray-800 rounded-xl overflow-hidden text-sm shadow-2xl;
 }
 
 th {
-    @apply px-4 py-2 border-b border-gray-300;
+    @apply px-4 py-2 border-b border-gray-300 dark:border-gray-800;
 }
 
 thead {
-    @apply bg-gray-200;
+    @apply bg-gray-200 dark:bg-gray-800;
 }
 
 tbody {
@@ -24,23 +24,23 @@ tbody {
 }
 
 tbody tr:nth-child(odd) {
-    @apply bg-white;
+    @apply bg-white dark:bg-black;
 }
 
 tbody tr:nth-child(even) {
-    @apply bg-gray-100;
+    @apply bg-gray-100 dark:bg-gray-900;
 }
 
 tbody tr:hover {
-    @apply bg-gray-200;
+    @apply bg-gray-200 dark:bg-gray-800;
 }
 
 td {
-    @apply px-4 py-2 border-b border-gray-300;
+    @apply px-4 py-2;
 }
 
 .cell-actions {
-    @apply flex justify-end;
+    @apply flex justify-end w-full h-full;
 }
 
 .cell-actions a {

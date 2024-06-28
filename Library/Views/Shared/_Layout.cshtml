@@ -20,9 +20,9 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body class="bg-orange-100 flex flex-col min-h-screen">
+<body class="bg-orange-100 dark:bg-amber-950 flex flex-col min-h-screen dark:text-white">
     <img class="object-cover w-full h-full top-0 left-0 -z-50 fixed" src="~/public/library.jpg" alt="Logo" />
-    <header class="h-fit backdrop-blur-xl bg-white/70 mb-3 border-b">
+    <header class="h-fit backdrop-blur-xl bg-white/70 dark:bg-black/70 mb-3 border-b dark:border-black">
         <nav class="py-3 sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96 shadow-md flex items-center">
             <a asp-controller="Home" asp-action="Index">
                 <i class="material-symbols-outlined scale-110 hover:scale-90 duration-200 drop-shadow-sm ease-out p-2">
@@ -41,12 +41,12 @@
     </header>
     <div class="grow">
         <main role="main"
-            class="sm:mx-20 md:mx-48 lg:mx-56 xl:mx-64 2xl:mx-80 3xl:mx-96 p-5 rounded-xl border backdrop-blur-xl bg-white/70 mb-3">
+            class="sm:mx-20 md:mx-48 lg:mx-56 xl:mx-64 2xl:mx-80 3xl:mx-96 p-5 rounded-xl border dark:border-black backdrop-blur-xl bg-white/70 dark:bg-black/70 mb-3">
             @RenderBody()
         </main>
     </div>
     <footer
-        class="h-fit backdrop-blur-xl bg-white/70 bottom-0 w-full border-t py-4 sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96 flex items-center text-gray-600">
+        class="h-fit backdrop-blur-xl bg-white/70 dark:bg-black/70 bottom-0 w-full border-t dark:border-black py-4 sm:px-20 md:px-48 lg:px-56 xl:px-64 2xl:px-80 3xl:px-96 flex items-center text-gray-600 dark:text-gray-300">
         <div>
             &copy; 2024 - Biblioteca Virtual - <a asp-area="" asp-controller="Home" asp-action="Privacy"
                 class="text-gray-600">Privacidade</a>
